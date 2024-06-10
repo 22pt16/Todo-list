@@ -1,6 +1,8 @@
 import axios from "axios";
 import React from "react";
 import { useEffect, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../css/custom.css';
 
 function Todo() {
     const [todoList, setTodoList] = useState([]);
@@ -36,7 +38,6 @@ function Todo() {
             setEditedDeadline("");
         }
     };
-
 
     // Function to add task to the database
     const addTask = (e) => {
@@ -81,7 +82,6 @@ function Todo() {
             .catch(err => console.log(err));
     }
 
-
     // Delete task from database
     const deleteTask = (id) => {
         axios.delete('http://127.0.0.1:3001/deleteTodoList/' + id)
@@ -95,13 +95,13 @@ function Todo() {
     }
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-5" >
             <div className="row">
                 <div className="col-md-7">
-                    <h2 className="text-center">Todo List</h2>
+                    <h2 className="text-center text">Todo List</h2>
                     <div className="table-responsive">
-                        <table className="table table-bordered">
-                            <thead className="table-primary">
+                        <table className="table table-bordered table-hover">
+                            <thead className="table-primary text-center">
                                 <tr>
                                     <th>Task</th>
                                     <th>Status</th>
@@ -112,7 +112,7 @@ function Todo() {
                             {Array.isArray(todoList) ? (
                                 <tbody>
                                     {todoList.map((data) => (
-                                        <tr key={data._id}>
+                                        <tr key={data._id} className="align-middle">
                                             <td>
                                                 {editableId === data._id ? (
                                                     <input
@@ -149,7 +149,6 @@ function Todo() {
                                                     data.deadline ? new Date(data.deadline).toLocaleString() : ''
                                                 )}
                                             </td>
-
                                             <td>
                                                 {editableId === data._id ? (
                                                     <button className="btn btn-success btn-sm" onClick={() => saveEditedTask(data._id)}>
@@ -170,52 +169,54 @@ function Todo() {
                             ) : (
                                 <tbody>
                                     <tr>
-                                        <td colSpan="4">Loading products...</td>
+                                        <td colSpan="4" className="text-center">Loading tasks...</td>
                                     </tr>
                                 </tbody>
                             )}
-
-
                         </table>
                     </div>
                 </div>
                 <div className="col-md-5">
-                    <h2 className="text-center">Add Task</h2>
-                    <form className="bg-light p-4">
-                        <div className="mb-3">
-                            <label>Task</label>
-                            <input
-                                className="form-control"
-                                type="text"
-                                placeholder="Enter Task"
-                                onChange={(e) => setNewTask(e.target.value)}
-                            />
+                        <div className="todo-form bg-light p-4 rounded shadow">
+                            <div className="mb-3">
+                                <h2 className="text-center text mb-4">Add Task</h2>
+                                <label className="form-label">Task</label>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    placeholder="Enter Task"
+                                    onChange={(e) => setNewTask(e.target.value)}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Status</label>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    placeholder="Enter Status"
+                                    onChange={(e) => setNewStatus(e.target.value)}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Deadline</label>
+                                <input
+                                    className="form-control"
+                                    type="datetime-local"
+                                    onChange={(e) => setNewDeadline(e.target.value)}
+                                />
+                            </div>
+                            <button onClick={addTask} className="btn btn-success btn-sm w-100">
+                                Add Task
+                            </button>
                         </div>
-                        <div className="mb-3">
-                            <label>Status</label>
-                            <input
-                                className="form-control"
-                                type="text"
-                                placeholder="Enter Status"
-                                onChange={(e) => setNewStatus(e.target.value)}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label>Deadline</label>
-                            <input
-                                className="form-control"
-                                type="datetime-local"
-                                onChange={(e) => setNewDeadline(e.target.value)}
-                            />
-                        </div>
-                        <button onClick={addTask} className="btn btn-success btn-sm">
-                            Add Task
-                        </button>
-                    </form>
+                    </div>
                 </div>
-
+                <footer className="text-center mt-5">
+                    <p style={{ lineHeight: '16px', paddingTop: '5px', paddingBottom: '5px' }}>22pt16 © 2024 All rights reserved</p>
+                </footer>
             </div>
-        </div>
-    )
+    );
 }
+
 export default Todo;
+
