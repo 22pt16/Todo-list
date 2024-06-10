@@ -1,0 +1,14 @@
+.app-container {
+    text-align: center;
+    padding: 16px; /* Add padding to the container */
+  }
+  
+  .app-title {
+    font-size: 30px; 
+    color: #333; 
+    margin-bottom: 25px;
+    margin-top: 10px;
+    font-weight: bold;
+    box-shadow: 2px 4px 8px 3px rgba(233, 215, 18, 0.793);
+  }
+  
